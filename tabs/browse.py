@@ -92,7 +92,7 @@ def render_browse_tab():
                 st.caption("No ratings yet")
 
             # ----------------------------------------------------------
-            # ⭐ Review editor (inline)
+            # Review editor (inline)
             # - Prefill with the current user's existing review (if any)
             # - Save or delete triggers rerun to reflect state
             # ----------------------------------------------------------
@@ -154,11 +154,11 @@ def render_browse_tab():
                     st.rerun()
 
             # ----------------------------------------------------------
-            # 📏 Dimensions editor
+            # Dimensions editor
             # - Allows editing of physical dimensions & pages
             # - Displays computed volume when all dims are present
             # ----------------------------------------------------------
-            with st.expander("📏 Dimensions / Edit"):
+            with st.expander("Dimensions / Edit"):
                 c1, c2, c3 = st.columns(3)
                 height = c1.number_input(
                     f"Height cm (#{b.id})",

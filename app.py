@@ -26,7 +26,7 @@ col1, col2, col3 = st.columns([1, 3, 1])
 with col2:
     st.title("Welcome to The Biggest Books App")
     st.markdown(
-        "Add and explore books, write reviews, and analyze your collection with interactive charts. Have fun! 🙂"
+        "Add and explore books, write reviews, and analyze your collection with interactive charts. Have fun! :)"
     )
 
 # ---------------------------------------------------------------------

@@ -1,74 +1,80 @@
-# 📚 The Biggest Book
+# The Biggest Book
 
-A **Streamlit + SQLAlchemy** web app to manage and explore books.  
-Users can add books (from Open Library or manually), tag them with authors & subjects, and leave reviews.  
-The app computes **book volumes** from dimensions, lets you browse and filter, and even generates fun analytics (like biggest books by volume).
-
----
-
-## 🚀 Features
-
-- 🔍 **Search & Add Books**
-  - Fetch metadata from [Open Library](https://openlibrary.org/) by **title** or **ISBN**
-  - Manually add books if not available in Open Library
-- 📑 **Book Catalog**
-  - Browse all books with cover, title, authors, and subjects
-  - Titles link to **Open Library** (if available) or fallback to **Google search**
-- 📝 **Reviews**
-  - Each user can review a book (⭐ rating + optional text)
-  - Average ratings and recent reviews are shown
-- 📏 **Dimensions & Volume**
-  - Store height, width, thickness, pages
-  - Auto-compute book volume (cm³) — compare which book is the *biggest*
-- 📊 **Analytics**
-  - Aggregated graphs (page counts, volumes, subjects, ratings)
-- 🗄️ **SQL-powered backend**
-  - Models defined with SQLAlchemy ORM
-  - Relational schema with users, books, authors, subjects, and reviews
+A **Streamlit + SQLAlchemy** web app to manage and explore the biggest of the books.  
+Add books from [Open Library](https://openlibrary.org/) or manually, track dimensions, write reviews, 
+and check witch one is the biggest.
 
 ---
 
-## 🛠️ Tech Stack
+## ✨ Features
 
-- [Streamlit](https://streamlit.io/) — UI
-- [SQLAlchemy](https://www.sqlalchemy.org/) — ORM and DB models
-- SQLite (default) — database backend
-- Open Library API — for book metadata
+- **Search & Add Books**
+  - Fetch metadata from **Open Library** by title (auto-prefill covers, authors, pages, dimensions)
+  - Add books manually if not available
+- **Browse Catalog**
+  - Explore all books with covers, titles, and authors
+  - Titles link to Open Library (if available)
+- **Reviews**
+  - Each user can leave ratings and optional text reviews
+  - Average ratings + recent reviews shown inline
+- **Dimensions & Volume**
+  - Store height, width, thickness, and pages
+  - Auto-compute volume (cm³) → find the **chonkers**
+- **Analytics**
+  - Largest books by volume
+  - Shelf space per user (treemap)
+- **SQL-powered backend**
+  - SQLAlchemy ORM models for users, books, authors, and reviews
+  - Default SQLite DB (`books.db`), easily swappable for Postgres/MySQL
 
 ---
 
-## 📂 Project Structure
+## Tech Stack
+
+- [Streamlit](https://streamlit.io/) — interactive UI
+- [SQLAlchemy](https://www.sqlalchemy.org/) — ORM and schema
+- [SQLite](https://sqlite.org) — default database
+- [Pandas](https://pandas.pydata.org/) + [Plotly](https://plotly.com/python/) — analytics & charts
+- [Open Library API](https://openlibrary.org/developers/api) — metadata harvester
+
+---
+
+## Project Structure
 
 ```bash
-The_Biggest_Book/
-│
-├── app.py # main Streamlit entrypoint
-├── models.py # SQLAlchemy ORM models
-├── dal.py # Data access layer (CRUD functions)
-├── db.py # Session/engine setup
-├── tabs/
-│ ├── add.py # Add books (Open Library & manual)
-│ ├── browse.py # Browse catalog + inline reviews
-│ ├── analytics.py # Charts and comparisons
-│ └── ... # (other tabs)
+book/
+├── app.py                 # main Streamlit entrypoint
+├── dal.py                 # Data access layer (CRUD, queries, analytics SQL)
+├── db.py                  # Session/engine setup
+├── init_db.py             # DB initialization helper
+├── init.py                # (placeholder / package init)
+├── models.py              # SQLAlchemy ORM models
+├── books.db               # SQLite database (auto-created)
+├── tabs/                  # Streamlit tab modules
+│   ├── add.py             # Add books (Open Library + manual)
+│   ├── browse.py          # Browse catalog + inline reviews & edits
+│   ├── analytics.py       # Charts and comparisons
+│   └── reviews.py         # Review editor + user’s review list
 ├── harvesters/
-│ └── openlibrary_client.py # API client for Open Library
-└── README.md # this file
+│   └── openlibrary_client.py  # Client for Open Library API
+├── LICENSE
+└── README.md              # this file
 ```
-
 
 ---
 
-## 🏃 Getting Started
-
+## Getting Strated
 
 ```bash
 git clone https://github.com/YOURNAME/The_Biggest_Book.git
 cd The_Biggest_Book
-
-conda create -n book streamlit sqlalchemy pandas python
+conda create -n book python=3.11 streamlit sqlalchemy pandas plotly requests
 conda activate book
-streamlit run app.py
 ```
+---
 
+## Database
 
+Default: books.db (SQLite, created automatically).
+To reset DB: delete books.db and run again, or use init_db.py.
+To switch to Postgres/MySQL: update the connection string in db.py.

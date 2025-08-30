@@ -1,4 +1,3 @@
-# tabs/reviews.py
 """
 Reviews tab for the Streamlit app.
 

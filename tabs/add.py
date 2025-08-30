@@ -74,7 +74,7 @@ def render_add_tab() -> None:
                             payload = build_payload_from_title_hit(h)  # includes dims/pages when available
                             with get_session() as s:
                                 book, created = create_book_from_api(s, payload)
-                        st.success(("✅ Added" if created else "ℹ️ Already in library") + f": {payload.get('title') or '(no title)'}")
+                        st.success(("Added" if created else "Already in library") + f": {payload.get('title') or '(no title)'}")
                         st.rerun()
                     except Exception as e:
                         st.error(f"Add failed: {e}")

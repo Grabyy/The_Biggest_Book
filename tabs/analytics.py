@@ -60,10 +60,10 @@ def _load_recent_books_df(limit: int = 8) -> pd.DataFrame:
 # Renderer
 # ----------------------------
 def render_analytics_tab() -> None:
-    st.subheader("📊 Analytics")
+    st.subheader("Analytics")
 
     # ---- Top Chonkers (largest by volume)
-    st.markdown("### 📦 Top Chonkers (by volume)")
+    st.markdown("### Top Chonkers (by volume)")
     df1 = _load_top_chonkers_df()
     if df1.empty or df1["volume_cm3"].fillna(0).le(0).all():
         st.caption("Add height, width, and thickness to some books to see this chart.")
@@ -83,7 +83,7 @@ def render_analytics_tab() -> None:
         st.plotly_chart(fig1, use_container_width=True)
 
     # ---- Shelf space per user (treemap)
-    st.subheader("🧱 Shelf Space per User (only for reviewed books)")
+    st.markdown("### Shelf Space per User (only for reviewed books)")
     df3 = _load_shelf_space_df()
 
     if df3.empty or df3["volume_cm3"].isna().all() or df3["volume_cm3"].fillna(0).le(0).all():
@@ -107,7 +107,7 @@ def render_analytics_tab() -> None:
         )
 
     # ---- Optional debug table
-    with st.expander("🔎 Recently added (debug)", expanded=False):
+    with st.expander("Recently added (debug)", expanded=False):
         df_recent = _load_recent_books_df(limit=8)
         st.dataframe(df_recent, use_container_width=True)
 
