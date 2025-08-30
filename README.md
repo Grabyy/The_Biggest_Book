@@ -6,6 +6,12 @@ and check witch one is the biggest.
 
 ---
 
+## You can test it here
+
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://thebiggestbook-7thvky4meqxectzl9mvmsy.streamlit.app/)
+
+---
+
 ## Features
 
 - **Search & Add Books**
