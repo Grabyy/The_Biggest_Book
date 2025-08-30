@@ -76,5 +76,7 @@ conda activate book
 ## Database
 
 Default: books.db (SQLite, created automatically).
+
 To reset DB: delete books.db and run again, or use init_db.py.
+
 To switch to Postgres/MySQL: update the connection string in db.py.
