@@ -41,21 +41,38 @@ and check witch one is the biggest.
 
 ## Screenshots
 
-### Search & Add Books
-![Search 1](./screenshots/Search_1.png)
-![Search 2](./screenshots/Search_2.png)
-
-### Browse Catalog
-![Browse 1](./screenshots/Browse_1.png)
-![Browse 2](./screenshots/Browse_2.png)
-
-### Reviews
-![Review 1](./screenshots/Rewiew_1.png)
-![Review 2](./screenshots/Rewiew_2.png)
-
-### Analytics
-![Analytics 1](./screenshots/Analytic_1.png)
-![Analytics 2](./screenshots/Analytic_2.png)
+<table>
+<tr>
+<td align="center">
+<img src="docs/screenshots/browse_1.png" alt="Browse Tab 1" width="400"/><br/>
+<b>Browse Library (1)</b>
+</td>
+<td align="center">
+<img src="docs/screenshots/browse_2.png" alt="Browse Tab 2" width="400"/><br/>
+<b>Browse Library (2)</b>
+</td>
+</tr>
+<tr>
+<td align="center">
+<img src="docs/screenshots/add.png" alt="Add Tab" width="400"/><br/>
+<b>Add Book</b>
+</td>
+<td align="center">
+<img src="docs/screenshots/reviews.png" alt="Reviews Tab" width="400"/><br/>
+<b>My Reviews</b>
+</td>
+</tr>
+<tr>
+<td align="center">
+<img src="docs/screenshots/analytics.png" alt="Analytics Tab" width="400"/><br/>
+<b>Analytics</b>
+</td>
+<td align="center">
+<img src="docs/screenshots/debug.png" alt="Debug Table" width="400"/><br/>
+<b>Debug / Recently Added</b>
+</td>
+</tr>
+</table>
 
 ---
 
