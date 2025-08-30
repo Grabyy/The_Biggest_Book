@@ -66,7 +66,7 @@ book/
 ## Getting Strated
 
 ```bash
-git clone https://github.com/YOURNAME/The_Biggest_Book.git
+git clone https://github.com/Grabyy/The_Biggest_Book.git
 cd The_Biggest_Book
 conda create -n book python=3.11 streamlit sqlalchemy pandas plotly requests
 conda activate book
