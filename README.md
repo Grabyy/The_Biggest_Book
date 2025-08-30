@@ -41,35 +41,52 @@ and check witch one is the biggest.
 
 ## Screenshots
 
+---
+
+## 🖼️ Screenshots
+
 <table>
 <tr>
 <td align="center">
-<img src="./screenshots/browse_1.png" alt="Browse Tab 1" width="400"/><br/>
-<b>Browse Library (1)</b>
+<img src="./screenshots/Browse_1.png" alt="Browse 1" width="400"/><br/>
+<b>Browse (1)</b>
 </td>
 <td align="center">
-<img src="./screenshots/browse_2.png" alt="Browse Tab 2" width="400"/><br/>
-<b>Browse Library (2)</b>
-</td>
-</tr>
-<tr>
-<td align="center">
-<img src="./screenshots/add.png" alt="Add Tab" width="400"/><br/>
-<b>Add Book</b>
-</td>
-<td align="center">
-<img src="./screenshots/reviews.png" alt="Reviews Tab" width="400"/><br/>
-<b>My Reviews</b>
+<img src="./screenshots/Browse_2.png" alt="Browse 2" width="400"/><br/>
+<b>Browse (2)</b>
 </td>
 </tr>
+
 <tr>
 <td align="center">
-<img src="./screenshots/analytics.png" alt="Analytics Tab" width="400"/><br/>
-<b>Analytics</b>
+<img src="./screenshots/Search_1.png" alt="Search 1" width="400"/><br/>
+<b>Search (1)</b>
 </td>
 <td align="center">
-<img src="./screenshots/debug.png" alt="Debug Table" width="400"/><br/>
-<b>Debug / Recently Added</b>
+<img src="./screenshots/Search_2.png" alt="Search 2" width="400"/><br/>
+<b>Search (2)</b>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<img src="./screenshots/Rewiew_1.png" alt="Reviews 1" width="400"/><br/>
+<b>Reviews (1)</b>
+</td>
+<td align="center">
+<img src="./screenshots/Rewiew_2.png" alt="Reviews 2" width="400"/><br/>
+<b>Reviews (2)</b>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<img src="./screenshots/Analytic_1.png" alt="Analytics 1" width="400"/><br/>
+<b>Analytics (1)</b>
+</td>
+<td align="center">
+<img src="./screenshots/Analytic_2.png" alt="Analytics 2" width="400"/><br/>
+<b>Analytics (2)</b>
 </td>
 </tr>
 </table>
