@@ -7,10 +7,9 @@ Each class maps to a table; relationships map to foreign keys.
 
 - User -> Review -> Book (users write reviews on books)
 - Book <-> Author          (many-to-many via book_authors)
-- Book <-> Subject        (many-to-many via book_subjects)
 
 Conventions:
-- Integer sizes are in millimeters (height_mm, width_mm, thickness_mm).
+- Integer sizes are in millimeters (height_cm, width_cm, thickness_cm).
 - `external_id` stores an external provider key (Open Library).
 - We keep (title, year) unique to reduce duplicates.
 - Relationships use cascade where appropriate (e.g., deleting a Book deletes its Reviews).
@@ -25,7 +24,6 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 class Base(DeclarativeBase):
     pass
-
 
 class User(Base):
     """
@@ -55,21 +53,6 @@ class Author(Base):
         secondary="book_authors", back_populates="authors"
     )
 
-
-class Subject(Base):
-    """
-    Represents a subject/genre/tag for books.
-    """
-    __tablename__ = "subjects"
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(200), unique=True, index=True)
-
-    books: Mapped[List["Book"]] = relationship(
-        secondary="book_subjects", back_populates="subjects"
-    )
-
-
 class Book(Base):
     """
     Central entity of the app: a book in your catalog.
@@ -85,18 +68,16 @@ class Book(Base):
     language: Mapped[Optional[str]] = mapped_column(String(10))
 
     # physical dimensions
-    height_mm: Mapped[Optional[int]]
-    width_mm: Mapped[Optional[int]]
-    thickness_mm: Mapped[Optional[int]]
+    height_cm: Mapped[Optional[int]]
+    width_cm: Mapped[Optional[int]]
+    thickness_cm: Mapped[Optional[int]]
     pages: Mapped[Optional[int]]
     format: Mapped[Optional[str]] = mapped_column(String(30))
 
     authors: Mapped[List["Author"]] = relationship(
         secondary="book_authors", back_populates="books"
     )
-    subjects: Mapped[List["Subject"]] = relationship(
-        secondary="book_subjects", back_populates="books"
-    )
+
     reviews: Mapped[List["Review"]] = relationship(
         back_populates="book", cascade="all, delete-orphan"
     )
@@ -114,17 +95,6 @@ class BookAuthor(Base):
 
     book_id: Mapped[int] = mapped_column(ForeignKey("books.id"), primary_key=True)
     author_id: Mapped[int] = mapped_column(ForeignKey("authors.id"), primary_key=True)
-
-
-class BookSubject(Base):
-    """
-    Association table linking Books to Subjects (many-to-many).
-    """
-    __tablename__ = "book_subjects"
-
-    book_id: Mapped[int] = mapped_column(ForeignKey("books.id"), primary_key=True)
-    subject_id: Mapped[int] = mapped_column(ForeignKey("subjects.id"), primary_key=True)
-
 
 class Review(Base):
     """

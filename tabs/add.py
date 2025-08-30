@@ -41,10 +41,11 @@ def render_add_tab():
                         payload = build_payload_from_title_hit(h)  # includes dims/pages when available
                         with get_session() as s:
                             book, created = create_book_from_api(s, payload)
-                        st.toast(("✅ Added" if created else "ℹ️ Already in library") + f": {payload['title']}")
+                        st.success(("✅ Added" if created else "ℹ️ Already in library") + f": {payload['title']}")
+                        st.rerun()
                     except Exception as e:
                         st.error(f"Add failed: {e}")
-                    st.rerun()
+                        st.exception(e)  # shows full traceback in the app
 
     st.divider()
 
@@ -53,16 +54,15 @@ def render_add_tab():
     with st.form("add_book_manual"):
         title = st.text_input("Title", placeholder="e.g., Clean Code")
         authors = st.text_input("Authors (comma-separated)", placeholder="e.g., Robert C. Martin")
-        subjects = st.text_input("Subjects (comma-separated)", placeholder="e.g., Software, Best practices")
         year = st.number_input("Year", min_value=0, max_value=2100, value=0, step=1)
         language = st.text_input("Language (ISO code)", placeholder="en")
         cover_url = st.text_input("Cover URL (optional)", placeholder="https://...")
         description = st.text_area("Description (optional)")
         st.markdown("**Physical dimensions (optional):**")
         c1, c2, c3, c4 = st.columns(4)
-        height_mm = c1.number_input("Height (mm)", min_value=0, step=1)
-        width_mm = c2.number_input("Width (mm)", min_value=0, step=1)
-        thickness_mm = c3.number_input("Thickness (mm)", min_value=0, step=1)
+        height_cm = c1.number_input("Height (cm)", min_value=0, step=1)
+        width_cm = c2.number_input("Width (cm)", min_value=0, step=1)
+        thickness_cm = c3.number_input("Thickness (cm)", min_value=0, step=1)
         pages = c4.number_input("Pages", min_value=0, step=1)
         format_sel = st.selectbox("Format", ["", "paperback", "hardcover", "ebook", "other"], index=0)
 
@@ -81,10 +81,10 @@ def render_add_tab():
                             cover_url=cover_url.strip() or None,
                             language=language.strip() or None,
                             authors=[a.strip() for a in authors.split(",") if a.strip()],
-                            subjects=[g.strip() for g in subjects.split(",") if g.strip()],
-                            height_mm=height_mm or None,
-                            width_mm=width_mm or None,
-                            thickness_mm=thickness_mm or None,
+                            # subjects=[g.strip() for g in subjects.split(",") if g.strip()],
+                            height_cm=height_cm or None,
+                            width_cm=width_cm or None,
+                            thickness_cm=thickness_cm or None,
                             pages=pages or None,
                             format=format_sel or None,
                         )

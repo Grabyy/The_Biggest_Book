@@ -1,4 +1,3 @@
-# app.py
 import streamlit as st
 from sqlalchemy import select
 from db import get_session, engine
@@ -10,8 +9,13 @@ from tabs.add import render_add_tab
 from tabs.reviews import render_reviews_tab
 from tabs.analytics import render_analytics_tab
 
-st.set_page_config(page_title="📚 Books App", layout="wide")
-st.title("📚 Books App — Streamlit + SQL (No ML)")
+st.set_page_config(page_title="The Biggest Books App", layout="wide")
+
+col1, col2, col3 = st.columns([1, 3, 1])
+with col2:
+    st.title("Welcome to The biggest Books App")
+    st.markdown("Add and explore books, write reviews, and analyze your collection with interactive charts, have fun :)")
+
 
 # Ensure tables exist
 Base.metadata.create_all(bind=engine)

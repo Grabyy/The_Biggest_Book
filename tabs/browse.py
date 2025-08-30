@@ -3,7 +3,7 @@ import math
 import streamlit as st
 from db import get_session
 from dal import (
-    list_books, list_subjects, update_book_dimensions, PAGE_SIZE, delete_book,
+    list_books, update_book_dimensions, PAGE_SIZE, delete_book,
     upsert_review, get_user_review, delete_user_review, rating_summary_for_books 
 )
 import urllib.parse
@@ -12,26 +12,21 @@ import urllib.parse
 def render_browse_tab():
     st.subheader("Browse Library")
 
-    col1, col2, col3 = st.columns([3, 3, 1])
+    col1, col2 = st.columns(2)
     with col1:
         q = st.text_input("Search title", placeholder="e.g., The Pragmatic Programmer")
     with col2:
-        with get_session() as s:
-            subs = list_subjects(s)
-        subject_options = {sub.name: sub.id for sub in subs}
-        chosen = st.multiselect("Filter by subjects", list(subject_options.keys()))
-        subject_ids = [subject_options[c] for c in chosen] if chosen else None
-    with col3:
         page = st.number_input("Page", min_value=1, step=1, value=1)
 
     with get_session() as s:
-        books, total = list_books(s, q=q, subject_ids=subject_ids, page=page)
+        books, total = list_books(s, q=q, page=page)
         # summaries for badges (avg + count) without N+1 queries
         summaries = rating_summary_for_books(s, [b.id for b in books])
 
     st.caption(f"Total books: {total}")
     total_pages = max(1, math.ceil(total / PAGE_SIZE))
-    cols = st.columns(3)
+    
+    cols = st.columns(3, gap="large")
 
     for i, b in enumerate(books):
         with cols[i % 3]:
@@ -49,9 +44,6 @@ def render_browse_tab():
                 st.markdown(f"### [{b.title}]({gb_url})")
             
             st.caption(", ".join(a.name for a in b.authors) or "Unknown author")
-
-            if b.subjects:
-                st.write("**Subjects:** " + ", ".join(sj.name for sj in b.subjects))
 
             # Small rating badge under title
             avg, n = summaries.get(b.id, (None, 0))
@@ -95,9 +87,9 @@ def render_browse_tab():
             # Dimensions editor
             with st.expander("📏 Dimensions / Edit"):
                 c1, c2, c3 = st.columns(3)
-                height = c1.number_input(f"Height mm (#{b.id})", min_value=0, value=b.height_mm or 0, step=1)
-                width  = c2.number_input(f"Width mm (#{b.id})", min_value=0, value=b.width_mm or 0, step=1)
-                thick  = c3.number_input(f"Thickness mm (#{b.id})", min_value=0, value=b.thickness_mm or 0, step=1)
+                height = c1.number_input(f"Height cm (#{b.id})", min_value=0, value=b.height_cm or 0, step=1)
+                width  = c2.number_input(f"Width cm (#{b.id})", min_value=0, value=b.width_cm or 0, step=1)
+                thick  = c3.number_input(f"Thickness cm (#{b.id})", min_value=0, value=b.thickness_cm or 0, step=1)
                 c4, c5 = st.columns(2)
                 pages  = c4.number_input(f"Pages (#{b.id})", min_value=0, value=b.pages or 0, step=1)
                 fmt    = c5.selectbox(
@@ -108,9 +100,9 @@ def render_browse_tab():
                 if st.button("Save dims", key=f"save_dims_{b.id}"):
                     with get_session() as s:
                         update_book_dimensions(s, b.id,
-                            height_mm=height or None,
-                            width_mm=width or None,
-                            thickness_mm=thick or None,
+                            height_cm=height or None,
+                            width_cm=width or None,
+                            thickness_cm=thick or None,
                             pages=pages or None,
                             format=fmt or None
                         )
@@ -122,7 +114,7 @@ def render_browse_tab():
 
             # Danger zone: Delete
             with st.expander("🗑️ Danger zone"):
-                st.caption("This permanently removes the book, its reviews, and links to authors/subjects.")
+                st.caption("This permanently removes the book, its reviews, and links to authors.")
                 col_del1, col_del2 = st.columns([1, 1])
                 confirm_key = f"confirm_del_{b.id}"
                 if col_del1.checkbox("I understand — delete this book", key=confirm_key):

@@ -2,6 +2,7 @@
 from contextlib import contextmanager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from typing import Iterator
 import os
 
 def _db_url():
@@ -26,7 +27,6 @@ SessionLocal = sessionmaker(
     expire_on_commit=False,  # critical for Streamlit pattern
 )
 
-from typing import Iterator
 @contextmanager
 def get_session() -> Iterator:
     session = SessionLocal()
