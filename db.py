@@ -38,4 +38,3 @@ def get_session() -> Iterator:
         raise
     finally:
         session.close()
-

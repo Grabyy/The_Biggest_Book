@@ -1,10 +1,8 @@
 # dal.py
+from models import Book, Author, Subject, Review, BookAuthor, BookSubject
+from sqlalchemy import select, func, desc, text, delete
+from sqlalchemy.orm import joinedload
 from typing import List, Optional, Tuple
-from sqlalchemy import select, func, desc
-from sqlalchemy.orm import joinedload
-from models import Book, Author, Subject, Review
-from sqlalchemy.orm import joinedload
-from sqlalchemy import select
 
 PAGE_SIZE = 12  # grid cards per page
 
@@ -139,8 +137,6 @@ def top_recent_reviews(session, limit: int = 10):
     return session.execute(stmt).scalars().all()
 
 # --- Reviews (one per user per book) ---
-from sqlalchemy import text
-from models import Review
 
 def upsert_review(session, user_id: int, book_id: int, rating: int, text_value: str | None):
     rv = session.scalar(
@@ -213,10 +209,6 @@ def shelf_space_by_subject_sql():
       LIMIT 15
     """)
 
-
-from sqlalchemy import select
-from models import Book
-
 def find_book_by_external_id(session, external_id: str | None):
     if not external_id:
         return None
@@ -261,3 +253,51 @@ def create_book_from_api(session, payload: dict):
         book.external_id = payload["external_id"]
     session.flush()
     return book, True
+
+def delete_book(session, book_id: int) -> int:
+    """
+    Hard-delete a book and its dependent rows.
+    Returns number of Book rows deleted (0 or 1).
+    """
+    # Remove dependents first (since we didn't define ON DELETE CASCADE on FKs)
+    session.execute(delete(Review).where(Review.book_id == book_id))
+    session.execute(delete(BookAuthor).where(BookAuthor.book_id == book_id))
+    session.execute(delete(BookSubject).where(BookSubject.book_id == book_id))
+    res = session.execute(delete(Book).where(Book.id == book_id))
+    return res.rowcount or 0
+
+def get_user_review(session, user_id: int, book_id: int) -> Review | None:
+    return session.scalar(
+        select(Review).where(Review.user_id == user_id, Review.book_id == book_id)
+    )
+
+def upsert_review(session, user_id: int, book_id: int, rating: int, text_value: str | None):
+    rv = get_user_review(session, user_id, book_id)
+    if rv:
+        rv.rating = rating
+        rv.text = text_value
+        session.flush()
+        return rv
+    rv = Review(user_id=user_id, book_id=book_id, rating=rating, text=text_value)
+    session.add(rv)
+    session.flush()
+    return rv
+
+def delete_user_review(session, user_id: int, book_id: int) -> int:
+    res = session.execute(
+        delete(Review).where(Review.user_id == user_id, Review.book_id == book_id)
+    )
+    return res.rowcount or 0
+
+def rating_summary_for_books(session, book_ids: list[int]) -> dict[int, tuple[float, int]]:
+    """
+    Returns {book_id: (avg_rating, n_reviews)} for the given page of books.
+    """
+    if not book_ids:
+        return {}
+    rows = session.execute(
+        select(Review.book_id, func.avg(Review.rating), func.count(Review.id))
+        .where(Review.book_id.in_(book_ids))
+        .group_by(Review.book_id)
+    ).all()
+    return {bid: (float(avg), int(n)) for bid, avg, n in rows}
