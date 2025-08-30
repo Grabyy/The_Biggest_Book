@@ -41,10 +41,6 @@ and check witch one is the biggest.
 
 ## Screenshots
 
----
-
-## 🖼️ Screenshots
-
 <table>
 <tr>
 <td align="center">
