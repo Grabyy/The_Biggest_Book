@@ -1,4 +1,3 @@
-# db.py
 from contextlib import contextmanager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -6,7 +5,6 @@ from typing import Iterator
 import os
 
 def _db_url():
-    # Prefer Streamlit secrets if available
     try:
         import streamlit as st  # noqa: WPS433
         url = st.secrets.get("connections", {}).get("sql", {}).get("url")
@@ -24,7 +22,7 @@ SessionLocal = sessionmaker(
     autoflush=False,
     autocommit=False,
     future=True,
-    expire_on_commit=False,  # critical for Streamlit pattern
+    expire_on_commit=False,
 )
 
 @contextmanager
