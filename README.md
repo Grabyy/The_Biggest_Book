@@ -39,6 +39,26 @@ and check witch one is the biggest.
 
 ---
 
+## Screenshots
+
+### Search & Add Books
+![Search 1](./screenshots/Search_1.png)
+![Search 2](./screenshots/Search_2.png)
+
+### Browse Catalog
+![Browse 1](./screenshots/Browse_1.png)
+![Browse 2](./screenshots/Browse_2.png)
+
+### Reviews
+![Review 1](./screenshots/Rewiew_1.png)
+![Review 2](./screenshots/Rewiew_2.png)
+
+### Analytics
+![Analytics 1](./screenshots/Analytic_1.png)
+![Analytics 2](./screenshots/Analytic_2.png)
+
+---
+
 ## Project Structure
 
 ```bash
@@ -70,6 +90,7 @@ git clone https://github.com/Grabyy/The_Biggest_Book.git
 cd The_Biggest_Book
 conda create -n book python=3.11 streamlit sqlalchemy pandas plotly requests
 conda activate book
+streamlit run app.py
 ```
 ---
 
