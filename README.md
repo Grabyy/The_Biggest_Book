@@ -6,7 +6,7 @@ and check witch one is the biggest.
 
 ---
 
-## ✨ Features
+## Features
 
 - **Search & Add Books**
   - Fetch metadata from **Open Library** by title (auto-prefill covers, authors, pages, dimensions)
