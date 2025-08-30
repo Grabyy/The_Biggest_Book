@@ -44,31 +44,31 @@ and check witch one is the biggest.
 <table>
 <tr>
 <td align="center">
-<img src="docs/screenshots/browse_1.png" alt="Browse Tab 1" width="400"/><br/>
+<img src="./screenshots/browse_1.png" alt="Browse Tab 1" width="400"/><br/>
 <b>Browse Library (1)</b>
 </td>
 <td align="center">
-<img src="docs/screenshots/browse_2.png" alt="Browse Tab 2" width="400"/><br/>
+<img src="./screenshots/browse_2.png" alt="Browse Tab 2" width="400"/><br/>
 <b>Browse Library (2)</b>
 </td>
 </tr>
 <tr>
 <td align="center">
-<img src="docs/screenshots/add.png" alt="Add Tab" width="400"/><br/>
+<img src="./screenshots/add.png" alt="Add Tab" width="400"/><br/>
 <b>Add Book</b>
 </td>
 <td align="center">
-<img src="docs/screenshots/reviews.png" alt="Reviews Tab" width="400"/><br/>
+<img src="./screenshots/reviews.png" alt="Reviews Tab" width="400"/><br/>
 <b>My Reviews</b>
 </td>
 </tr>
 <tr>
 <td align="center">
-<img src="docs/screenshots/analytics.png" alt="Analytics Tab" width="400"/><br/>
+<img src="./screenshots/analytics.png" alt="Analytics Tab" width="400"/><br/>
 <b>Analytics</b>
 </td>
 <td align="center">
-<img src="docs/screenshots/debug.png" alt="Debug Table" width="400"/><br/>
+<img src="./screenshots/debug.png" alt="Debug Table" width="400"/><br/>
 <b>Debug / Recently Added</b>
 </td>
 </tr>
