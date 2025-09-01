@@ -137,3 +137,24 @@ Default: books.db (SQLite, created automatically).
 To reset DB: delete books.db and run again, or use init_db.py.
 
 To switch to Postgres/MySQL: update the connection string in db.py.
+
+## Security & Possible Improvements
+
+This project is a **demo / hobby app** and not yet production-ready.  
+Here are some areas that can be improved to make it more robust and secure:
+
+- **Authentication & Authorization**
+  - Currently, any user can type a username in the sidebar → no real login system.
+
+- **Database Security**
+  - Uses a local SQLite file (`books.db`), stored alongside the code.
+  - In production, move to PostgreSQL/MySQL with proper user roles.
+
+- **Input Validation**
+  - No validation on text inputs → risk of broken data (or even SQL injection if raw queries are used).
+
+- **Deployment**
+  - Running on [Streamlit Cloud](https://streamlit.io/cloud) means the DB resets if the app restarts.
+
+- **Performance**
+  - All queries are run on each tab render.
