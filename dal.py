@@ -1,4 +1,3 @@
-# dal.py
 from __future__ import annotations
 
 from typing import Dict, List, Optional, Sequence, Tuple
@@ -132,7 +131,7 @@ def list_books(
     page: int = 1,
 ) -> Tuple[List[Book], int]:
     """
-    Paginated list of books with authors eagerly loaded.
+    Paginated list of books with authors.
     Returns (items, total_count) where items is a list[Book].
 
     - q: optional case-insensitive title substring filter
@@ -279,7 +278,6 @@ def top_chonkers_sql():
 def shelf_space_by_user_treemap_sql():
     """
     One row per (user, book) with computed volume in cm³.
-    A book counts toward each user who reviewed it.
     """
     return text(
         """

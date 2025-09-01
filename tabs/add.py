@@ -6,8 +6,6 @@ import streamlit as st
 
 from db import get_session
 from dal import create_book, create_book_from_api
-# Adjust this import to your actual package layout:
-# if file lives at project_root/openlibrary_client.py, use `from openlibrary_client import ...`
 from harvesters.openlibrary_client import search_title, build_payload_from_title_hit
 
 
@@ -33,7 +31,7 @@ def render_add_tab() -> None:
     st.subheader("Add a new book")
 
     # --- A) Open Library: search by title ---
-    st.markdown("### 🔎 Find by Title (Open Library)")
+    st.markdown("### Find by Title (Open Library)")
 
     with st.form("ol_search_form", clear_on_submit=False):
         q = st.text_input("Search a title to prefill", key="ol_q", placeholder="e.g., The Hobbit")

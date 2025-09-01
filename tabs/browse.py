@@ -1,4 +1,3 @@
-# tabs/browse.py
 """
 Browse tab for the Streamlit app.
 

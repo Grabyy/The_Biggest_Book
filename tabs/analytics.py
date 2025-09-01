@@ -16,7 +16,6 @@ from dal import top_chonkers_sql, shelf_space_by_user_treemap_sql
 @st.cache_data(show_spinner=False, ttl=60)
 def _load_top_chonkers_df() -> pd.DataFrame:
     with get_session() as s:
-        # pandas accepts an Engine/Connection; s.bind is the Engine
         df = pd.read_sql(top_chonkers_sql(), s.bind)
     # Ensure numeric dtype
     if "volume_cm3" in df.columns:

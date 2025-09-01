@@ -9,10 +9,10 @@ Each class maps to a table; relationships map to foreign keys.
 - Book <-> Author          (many-to-many via book_authors)
 
 Conventions:
-- Integer sizes are in millimeters (height_cm, width_cm, thickness_cm).
-- `external_id` stores an external provider key (Open Library).
-- We keep (title, year) unique to reduce duplicates.
-- Relationships use cascade where appropriate (e.g., deleting a Book deletes its Reviews).
+- Integer sizes are in centimeters (height_cm, width_cm, thickness_cm).
+- external_id stores an external provider key (Open Library).
+- Keep (title, year) unique to reduce duplicates.
+- Deleting a Book deletes its Reviews).
 """
 
 from __future__ import annotations
@@ -55,7 +55,7 @@ class Author(Base):
 
 class Book(Base):
     """
-    Central entity of the app: a book in your catalog.
+    A book in your catalog.
     """
     __tablename__ = "books"
 

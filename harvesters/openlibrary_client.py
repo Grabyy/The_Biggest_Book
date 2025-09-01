@@ -1,4 +1,3 @@
-# openlibrary_client.py
 from __future__ import annotations
 
 import re
@@ -23,7 +22,7 @@ _session: Optional[requests.Session] = None
 
 def _get_session() -> requests.Session:
     """
-    Lazily create a requests.Session with reasonable retries and a helpful UA.
+    Lazily create a requests. Session with reasonable retries and a helpful UA.
     """
     global _session
     if _session is None:
@@ -74,7 +73,7 @@ def _cover_url(cover_i: Optional[int], size: str = "L") -> Optional[str]:
 
 
 # ---------------------------------------------------------------------------
-# Title search (WORK-level)
+# Title search 
 # ---------------------------------------------------------------------------
 
 def search_title(q: str, limit: int = DEFAULT_LIMIT) -> List[Dict[str, Any]]:
@@ -123,11 +122,7 @@ _NUM = re.compile(r"[\d]+(?:[.,]\d+)?")  # supports "13.5" or "13,5"
 
 def _parse_dimensions(dim_str: str) -> Tuple[Optional[float], Optional[float], Optional[float]]:
     """
-    Parse strings like:
-      "20 x 13 x 2.5 centimeters", "8.5 × 5.5 × 1.2 inches", or "210 x 148 x 20 mm"
     Returns (height_cm, width_cm, thickness_cm) normalized to centimeters, or (None, None, None).
-
-    We accept 'x' or '×' separators and decimal commas.
     """
     if not dim_str:
         return None, None, None
@@ -285,14 +280,13 @@ def build_payload_from_title_hit(hit: Dict[str, Any]) -> Dict[str, Any]:
     dims = fetch_dims_for_work(hit.get("external_id"))
 
     return {
-        "external_id": hit.get("external_id"),   # e.g. "/works/OL12345W"
+        "external_id": hit.get("external_id"),   
         "title": hit.get("title"),
         "year": hit.get("year"),
-        "description": None,                     # could be fetched via /works/{id}.json if desired
+        "description": None,                     # For later
         "cover_url": hit.get("cover_url"),
         "authors": hit.get("authors") or [],
         "language": hit.get("language"),
-        # ints (cm/pages) — keep aligned with your DB schema
         "height_cm": _to_int_or_none(dims.get("height_cm")),
         "width_cm": _to_int_or_none(dims.get("width_cm")),
         "thickness_cm": _to_int_or_none(dims.get("thickness_cm")),

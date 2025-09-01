@@ -1,21 +1,18 @@
-# app.py
 from __future__ import annotations
 
 import streamlit as st
 from sqlalchemy import select
 
-# Local imports
 from db import get_session, engine
 from models import Base, User
 
-# Tab renderers
 from tabs.browse import render_browse_tab
 from tabs.add import render_add_tab
 from tabs.reviews import render_reviews_tab
 from tabs.analytics import render_analytics_tab
 
 # ---------------------------------------------------------------------
-# Page config MUST be set before any other Streamlit calls
+# Page config
 # ---------------------------------------------------------------------
 st.set_page_config(page_title="The Biggest Books App", layout="wide")
 
@@ -30,7 +27,7 @@ with col2:
     )
 
 # ---------------------------------------------------------------------
-# Ensure tables exist (safe no-op if they already do)
+# Ensure tables exist
 # ---------------------------------------------------------------------
 try:
     Base.metadata.create_all(bind=engine)
@@ -40,7 +37,7 @@ except Exception as exc:
     st.stop()
 
 # ---------------------------------------------------------------------
-# Simple username switcher (stores both username and user_id in session)
+# Simple username switcher
 # ---------------------------------------------------------------------
 with st.sidebar:
     st.header("Sign in")
@@ -77,7 +74,6 @@ with add_tab:
     render_add_tab()
 
 with my_reviews_tab:
-    # Pass the display name; components can read user_id from st.session_state if needed
     render_reviews_tab(current_username)
 
 with analytics_tab:

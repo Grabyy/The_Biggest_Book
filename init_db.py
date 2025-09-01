@@ -1,4 +1,3 @@
-# init_db.py
 from sqlalchemy import select
 from db import engine, get_session
 from models import Base, User

@@ -6,7 +6,7 @@ import os
 
 def _db_url():
     try:
-        import streamlit as st  # noqa: WPS433
+        import streamlit as st
         url = st.secrets.get("connections", {}).get("sql", {}).get("url")
         if url:
             return url
